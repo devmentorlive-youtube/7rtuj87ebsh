@@ -29,14 +29,12 @@ if (process.env.NODE_ENV === "development") {
 const { faker } = require("@faker-js/faker");
 
 createUser = () => ({
-  id: faker.datatype.uuid(),
   name: faker.name.firstName(),
   email: faker.internet.email(),
   photo: faker.image.avatar(),
 });
 
-const json = [...new Array(1000000)].map(async (_) => createUser());
-
+const json = [...new Array(100000)].map((_) => createUser());
 (async () => {
-  await (await dbPromise).db().collection("people").insert(json);
+  await (await dbPromise).db().collection("people").insertMany(json);
 })();

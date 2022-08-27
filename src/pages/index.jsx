@@ -2,14 +2,17 @@ import dbPromise, { jsonify } from "@/modules/db";
 import PeopleList from "@/features/people/list";
 import withFilter from "@/features/with-filter";
 import Layout from "@/features/layout";
+import SelectedPersonProvider from "@/features/people/selected-person";
 
 const FilteredPeopleList = withFilter(PeopleList);
 
 export default function Homepage({ people = [] }) {
   return (
-    <Layout>
-      <FilteredPeopleList {...{ data: people }} />
-    </Layout>
+    <SelectedPersonProvider>
+      <Layout>
+        <FilteredPeopleList {...{ people }} />
+      </Layout>
+    </SelectedPersonProvider>
   );
 }
 

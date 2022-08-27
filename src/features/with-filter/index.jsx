@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function withFilter(Component) {
-  return function WrappedComponent({ data, ...rest }) {
+  return function WrappedComponent({ people, ...rest }) {
     const [query, setQuery] = useState("");
 
     return (
@@ -21,9 +21,11 @@ export default function withFilter(Component) {
         <div className="w-full">
           <Component
             {...{
-              data: data
-                .filter((item) =>
-                  item._id.toLowerCase().includes(query.toLowerCase())
+              people: people
+                .filter(
+                  (item) =>
+                    item._id.toLowerCase().includes(query.toLowerCase()) ||
+                    item.name.toLowerCase().includes(query.toLowerCase())
                 )
                 .slice(0, 10),
               ...rest,
